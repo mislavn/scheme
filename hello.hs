@@ -1,9 +1,17 @@
 module Main where
 import System.Environment
+import Text.ParserCombinators.Parsec hiding (spcaes)
+
+symbol :: Parser Char
+symbol = oneOf "!$%&|*+-/:<=?>@^_~#"
+
+readExpr :: String -> String
+readExpr input = case parse symbol "lisp" input of
+    Left err -> "No match: " ++ show err
+    Right val -> "Found value"
 
 main :: IO ()
 main = do
-    putStrLn "Please entere you name"
-    name <- getLine
-    print $ "your name is " ++ name
+    args <- getArgs
+    putStrLn (readExpr (head args))
 
