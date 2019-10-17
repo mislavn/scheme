@@ -3,6 +3,7 @@ import System.Environment
 
 main :: IO ()
 main = do
-    args <- getArgs
-    print(show $ read (head args)  + read (args !! 1))
+    putStrLn "Please entere you name"
+    name <- getLine
+    print $ "your name is " ++ name
 
