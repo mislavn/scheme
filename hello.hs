@@ -6,9 +6,12 @@ symbol :: Parser Char
 symbol = oneOf "!$%&|*+-/:<=?>@^_~#"
 
 readExpr :: String -> String
-readExpr input = case parse symbol "lisp" input of
+readExpr input = case parse (spaces2 >> symbol) "lisp" input of
     Left err -> "No match: " ++ show err
     Right val -> "Found value"
+
+spaces2 :: Parser ()
+spaces2 = skipMany1 space
 
 main :: IO ()
 main = do
